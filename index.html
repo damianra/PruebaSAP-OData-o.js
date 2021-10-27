@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Prueba OData JS</title>
+    </head>
+
+    <body>
+
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/q.js"></script>
+        <script src="https://unpkg.com/odata@1.3.0/dist/umd/o.polyfill.js"></script>
+        <script src="https://unpkg.com/odata@1.3.0/dist/umd/o.min.js"></script>
+        <script src="js/knockout-3.2.0.js"></script>
+        <script src="js/ko.bindinghandler.currency.js"></script>
+        <script src="browser.js"></script>
+
+
+        <script>
+            // AJAX EXAMPLE
+            //$.ajax({
+            //    url: "https://services.odata.org/V4/%28S%28wptr35qf3bz4kb5oatn432ul%29%29/TripPinServiceRW/People('russellwhyte')",
+            //    contentType: 'application/json; charset=utf-8',
+            //    type: 'GET',
+            //    dataType: 'json',
+            //    error: function (xhr, status) {
+            //        alert(status);
+            //    },
+            //    success: function (result) {
+            //        console.log(result);
+            //        //TODO: Something with the CORS result
+            //    }
+            //});
+
+            // o.js EXAMPLE
+            var self = this;
+            self.People = ko.observableArray([]);
+            self.route = ko.observable('');
+            self.skip = ko.observable(0);
+            self.total = ko.observable(0);
+            self.detailPeople = ko.observable();
+            self.isLoading = ko.observable(false);
+
+            var o = odata.o;
+            var oHandler = o("https://services.odata.org/V4/%28S%28wptr35qf3bz4kb5oatn432ul%29%29/TripPinServiceRW/", {
+                crossDomain: true,
+                headers: {
+                    'If-Match': '*'
+                }
+            });
+            oHandler.get("").query({
+            //$top: 3
+            }).then(function (data) {
+                console.log(data);
+                //for(var d in data){
+                //    console.log(data[d]['FirstName']);
+                //}
+            });
+
+        </script>
+
+
+
+    </body>
+
+
+</html>
